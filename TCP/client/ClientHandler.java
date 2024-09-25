@@ -1,10 +1,20 @@
+/*
+    클라이언트와 서버 간의 채팅 및 파일 전송을 관리하는 클래스입니다.
+    채팅과 파일 전송을 위한 소켓을 생성하고, 송신 및 수신을 처리합니다. 또한, 멀티스레드로 파일 전송 작업을 병렬로 처리하기 위해 스레드 풀을 사용합니다.
+
+    주요 기능:
+    - sendMessage(String message): 사용자의 입력 메시지를 서버에 전송하며, 파일 전송(#PUT) 또는 파일 다운로드(#GET) 요청을 처리합니다.
+    - sendFile(String message): 사용자가 선택한 파일을 서버로 전송합니다.
+    - receiveFile(String message): 서버로부터 파일을 수신하여 로컬 디렉토리에 저장합니다.
+    - close(): 채팅 및 파일 소켓과 스트림을 닫고 자원을 반환합니다.
+*/
+
 package client;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class ClientHandler {
     private Socket chatSocket;

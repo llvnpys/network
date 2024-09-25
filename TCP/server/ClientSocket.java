@@ -1,3 +1,14 @@
+/*
+    클라이언트와 서버 간의 채팅 및 파일 전송을 처리하는 소켓 관리 클래스입니다.
+    채팅과 파일 전송을 위한 소켓 및 스트림을 초기화하고, 클라이언트의 채팅방 이름과 클라이언트 이름을 관리합니다.
+    자원을 효율적으로 관리하기 위해 모든 소켓과 스트림을 닫는 기능도 포함되어 있습니다.
+
+    주요 기능:
+    - getChatIn(), getChatOut(): 채팅용 입력 및 출력 스트림을 반환합니다.
+    - getFileIn(), getFileOut(): 파일 전송용 입력 및 출력 스트림을 반환합니다.
+    - closeSockets(): 모든 소켓과 스트림을 닫아 자원을 반환합니다.
+*/
+
 package server;
 
 import java.io.*;
@@ -9,8 +20,8 @@ public class ClientSocket {
 
     private BufferedReader chatIn;
     private BufferedWriter chatOut;
-    private DataInputStream fileIn;  // 데이터 스트림으로 변경
-    private DataOutputStream fileOut;  // 데이터 스트림으로 변경
+    private DataInputStream fileIn;
+    private DataOutputStream fileOut;
 
     private String roomName;
     private String clientName;
@@ -21,8 +32,8 @@ public class ClientSocket {
 
         chatIn = new BufferedReader(new InputStreamReader(this.chatSocket.getInputStream()));
         chatOut = new BufferedWriter(new OutputStreamWriter(this.chatSocket.getOutputStream()));
-        fileIn = new DataInputStream(this.fileSocket.getInputStream());  // 변경
-        fileOut = new DataOutputStream(this.fileSocket.getOutputStream());  // 변경
+        fileIn = new DataInputStream(this.fileSocket.getInputStream());
+        fileOut = new DataOutputStream(this.fileSocket.getOutputStream());
     }
 
     public BufferedReader getChatIn() {
@@ -65,7 +76,7 @@ public class ClientSocket {
         this.clientName = clientName;
     }
 
-    // 모든 자원을 닫는 메서드
+    // 모든 자원을 반환하는 메서드
     public void closeSockets() {
         try {
             if (chatIn != null) {
